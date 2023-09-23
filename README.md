@@ -1,7 +1,5 @@
 # Shellby
-### Shells for days, to enable remote administration :)
-
-
+Shells for days, to enable remote administration :)
 
 ## Disclaimer for "Shellby":
 
