@@ -41,4 +41,8 @@ def main():
     words = load_words(args.words_file)
     base64_list = create_base64_list()
     words = shuffle_words(words)
-    assignments = assign_words_to_base64(base64_list, wo
+    assignments = assign_words_to_base64(base64_list, words, WORD_COUNT)
+    save_assignments(assignments, args.output_file)
+
+if __name__ == "__main__":
+    main()
