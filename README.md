@@ -1,5 +1,7 @@
 # Shellby
-Shells for days, to enable remote administration :)
+Shells for days, to enable remote administration with a few additional features :)
+
+**THIS TOOL'S PRIMARY USECASE IS FOR CTFs, IT IS BUILT AND EMPOWERED BY IHAX4BUX TEAM.**
 
 ## Disclaimer for "Shellby":
 
