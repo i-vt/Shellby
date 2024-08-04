@@ -1,7 +1,7 @@
 # Shellby
 Shells for days, to enable remote administration with a few additional features :)
 
-**THIS TOOL'S PRIMARY USECASE IS FOR CTFs, IT IS BUILT AND EMPOWERED BY IHAX4BUX TEAM.**
+**THIS TOOL'S PRIMARY USECASE IS FOR CYBER SECURITY CTFs, IT IS BUILT AND EMPOWERED BY IHAX4BUX CTF TEAM.**
 
 ## Disclaimer for "Shellby":
 
