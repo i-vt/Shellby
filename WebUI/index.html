@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Shellby] Graph Map</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/toggle.css">
+</head>
+<body>
+    <!-- Menu Ribbon -->
+    <div class="menu-ribbon">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <div class="dropdown">
+            <button class="dropbtn">Options</button>
+            <div class="dropdown-content">
+                <a href="#option1">Option 1</a>
+                <a href="#option2">Option 2</a>
+                <a href="#option3">Option 3</a>
+                <!-- Options show up behind the graph -->
+            </div>
+        </div> 
+        <a href="#contact">Wiki</a>
+        <!-- Toggle button for light/dark mode -->
+        <button class="toggle-button">Switch to Light Mode</button>
+    </div>
+
+    <!-- Main content area -->
+    <div class="content">
+        <!-- SVG container for D3 visualization -->
+        <svg width="70%" height="100%"></svg>
+
+        <!-- Chat window -->
+        <div class="chat-container">
+            <div class="chat-tabs" id="chat-tabs">
+                <!-- Tabs for nodes will be added here -->
+            </div>
+            <div class="chat-window" id="chat-window">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <textarea id="chat-input" placeholder="Type your message..."></textarea>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right-click menu container -->
+    <div class="menu" id="menu">
+        <ul>
+            <li onclick="handleOption('Info')">Info</li>
+            <li onclick="handleOption('Upload / Download')">Upload / Download</li>
+            <li onclick="handleOption('Open Shell')">Open Shell</li>
+        </ul>
+    </div>
+
+    <script src="libs/d3.v7.min.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

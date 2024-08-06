@@ -1,0 +1,108 @@
+/* Styling for the menu ribbon */
+.menu-ribbon {
+    background-color: var(--background-color);
+    overflow: hidden;
+    color: var(--text-color);
+    padding: 10px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+}
+
+.menu-ribbon a {
+    float: left;
+    display: block;
+    color: var(--text-color);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.menu-ribbon a:hover {
+    background-color: var(--active-tab-background);
+}
+
+.menu-ribbon .dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.menu-ribbon .dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    padding: 14px 16px;
+    background-color: inherit;
+    margin: 0;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.menu-ribbon .dropdown:hover .dropbtn {
+    background-color: var(--active-tab-background);
+}
+
+.menu-ribbon .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown-background);
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden; /* Ensure content does not overflow */
+}
+
+.menu-ribbon .dropdown-content a {
+    float: none;
+    color: var(--dropdown-text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.menu-ribbon .dropdown-content a:hover {
+    background-color: var(--active-tab-background);
+}
+
+.menu-ribbon .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styling for the right-click menu */
+.menu {
+    position: absolute;
+    display: none;
+    background-color: var(--menu-background);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    padding: 10px;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+.menu li:hover {
+    background-color: var(--active-tab-background);
+}
+

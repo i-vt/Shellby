@@ -1,0 +1,81 @@
+/* styles.css */
+
+/* CSS Variables for light and dark themes */
+:root {
+    --background-color: #1c1c1c;
+    --text-color: #e0e0e0; /* Text color for dark mode */
+    --link-color: #999;
+    --link-opacity: 0.6;
+    --node-color: #e0e0e0;
+    --label-color: #e0e0e0; /* Node label color for dark mode */
+    --tab-background: #3a3a3a;
+    --active-tab-background: #575757;
+    --chat-background: #2b2b2b;
+    --chat-window-background: #1c1c1c;
+    --message-background: #444;
+    --user-message-background: #4e6e81;
+    --border-color: #555;
+    --dropdown-background: #2b2b2b;
+    --dropdown-text-color: #e0e0e0;
+    --menu-background: #2b2b2b;
+    --button-background: #4CAF50;
+    --button-hover-background: #45a049;
+}
+
+body.light-mode {
+    --background-color: #f4f4f4;
+    --text-color: #333; /* Text color for light mode */
+    --link-color: #666;
+    --link-opacity: 0.8;
+    --node-color: #333;
+    --label-color: #333; /* Node label color for light mode */
+    --tab-background: #e0e0e0;
+    --active-tab-background: #d4d4d4;
+    --chat-background: #ffffff;
+    --chat-window-background: #f4f4f4;
+    --message-background: #e0e0e0;
+    --user-message-background: #3b82f6;
+    --border-color: #ccc;
+    --dropdown-background: #ffffff;
+    --dropdown-text-color: #333;
+    --menu-background: #f4f4f4;
+    --button-background: #3b82f6;
+    --button-hover-background: #2563eb;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.content {
+    display: flex;
+    flex: 1;
+}
+
+svg {
+    border: 1px solid var(--border-color);
+    background-color: var(--menu-background);
+    border-radius: 5px;
+}
+
+/* Styling for the SVG links */
+.links line {
+    stroke: var(--link-color);
+    stroke-opacity: var(--link-opacity);
+    stroke-width: 2;
+}
+
+/* Styling for node labels */
+.node-label {
+    font-size: 12px;
+    fill: var(--label-color); /* Use label color variable */
+    pointer-events: none;
+}
+

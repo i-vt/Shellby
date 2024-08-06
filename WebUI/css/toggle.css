@@ -1,0 +1,19 @@
+/* Toggle button styling */
+.toggle-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--button-background);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: var(--button-hover-background);
+}
+

@@ -1,0 +1,14 @@
+{
+    "messages": [
+        {
+            "type": "user",
+            "text": "hello",
+            "timestamp": "2024-08-05T11:57:27.111Z"
+        },
+        {
+            "type": "bot",
+            "text": "This is a bot response.",
+            "timestamp": "2024-08-05T11:57:28.112Z"
+        }
+    ]
+}

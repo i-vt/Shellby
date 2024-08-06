@@ -1,0 +1,25 @@
+{
+    "nodes": [
+        { "id": "ENTRYPOINT", "group": 1 },
+        { "id": "HTB_NIX01", "group": 1 },
+        { "id": "HTB_WEB01", "group": 2 },
+        { "id": "HTB_SRV01", "group": 2 },
+        { "id": "HTB_SQL01", "group": 2 },
+        { "id": "HTB_AD01", "group": 2 },
+        { "id": "HTB_SRV02", "group": 3 },
+        { "id": "HTB_AD02", "group": 3 },
+        { "id": "HTB_Backup01", "group": 3 }
+        
+    ],
+    "links": [
+        { "source": "ENTRYPOINT", "target": "HTB_NIX01" },
+        { "source": "HTB_NIX01", "target": "HTB_WEB01" },
+        { "source": "HTB_NIX01", "target": "HTB_SRV01" },
+        { "source": "HTB_NIX01", "target": "HTB_SQL01" },
+        { "source": "HTB_NIX01", "target": "HTB_AD01" },
+        { "source": "HTB_SRV01", "target": "HTB_Backup01" },
+        { "source": "HTB_SRV01", "target": "HTB_AD02" },
+        { "source": "HTB_SRV01", "target": "HTB_SRV02" }
+    ]
+}
+
