@@ -1,6 +1,8 @@
 # Shellby
 Shells for days, to enable remote administration with a few additional features :)
 
+[ PROJECT DISCONTINUED AND NO LONGER WILL BE SUPPORTED ]
+
 Usecases for this tool:
 - HackTheBox (HTB) ProLabs
 - HackTheBox (HTB) Fortresses
