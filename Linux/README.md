@@ -9,6 +9,6 @@
 
 [>] Command (format: client_id command OR all command): 
 ```
-
-Execute command on a specific host (ex.: host 2): `2 whoami`
-Execute command on ALL hosts connected: `all whoami`
+Execute command on:
+- a specific host (ex.: host 2): `2 whoami`
+- ALL hosts connected: `all whoami`
