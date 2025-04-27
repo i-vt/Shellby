@@ -118,7 +118,7 @@ def main():
         with lock:
             clients[client_id] = ssl_socket
 
-        print(f"[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
+        print(f"\n[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}\n")
 
         client_thread = threading.Thread(target=handle_client, args=(ssl_socket, addr, client_id))
         client_thread.daemon = True
