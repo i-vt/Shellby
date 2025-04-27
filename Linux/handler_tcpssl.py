@@ -1,3 +1,5 @@
+# server.py
+
 import socket
 import threading
 import sys
@@ -34,14 +36,9 @@ def handle_client(client_socket, addr, client_id):
 
     finally:
         with lock:
-            print(f"\n[-] Client {client_id} disconnected.")
+            print(f"[-] Client {client_id} disconnected.")
             if client_id in clients:
                 del clients[client_id]
-            
-            if len(clients) == 1:
-                remaining_client_id = next(iter(clients))
-                sys.stdout.write(f"\n[>] ({remaining_client_id}) $ ")
-                sys.stdout.flush()
         client_socket.close()
 
 def command_sender():
@@ -120,7 +117,8 @@ def main():
 
         with lock:
             clients[client_id] = ssl_socket
-            print(f"\n[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
+
+        print(f"[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
 
         client_thread = threading.Thread(target=handle_client, args=(ssl_socket, addr, client_id))
         client_thread.daemon = True
