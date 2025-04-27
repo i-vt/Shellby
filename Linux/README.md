@@ -12,3 +12,5 @@
 Execute command on:
 - a specific host (ex.: host 2): `2 whoami`
 - ALL hosts connected: `all whoami`
+
+![image](https://github.com/user-attachments/assets/31842082-a8fa-4ed8-86fe-1910c46ff9d6)
